@@ -29,7 +29,7 @@ if g:isGUI
     set guioptions-=T
     set guioptions-=r
     set guioptions-=L
-	au GUIEnter * call libcallnr("vimtweak.dll", "SetAlpha", 234)
+	au GUIEnter * call libcallnr("vimtweak.dll", "SetAlpha", 255)
 endif
 
 " set the runtime path to include Vundle and initialize
@@ -57,9 +57,10 @@ Plugin 'altercation/vim-colors-solarized'
 "colorscheme solarized
 
 Plugin 'ap/vim-css-color'
-
+Plugin 'fatih/vim-go'
 Plugin 'bling/vim-airline'
-
+Plugin 'jelera/vim-javascript-syntax'
+au FileType javascript call JavaScriptFold()
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
@@ -77,16 +78,17 @@ endif
 Plugin 'mattn/emmet-vim'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,php EmmetInstall
+let g:user_emmet_leader_key='<C-Z>'
 
 Plugin 'scrooloose/nerdtree'
 map    <F3>        :NERDTreeToggle<CR>
 imap   <F3> <ESC>  :NERDTreeToggle<CR>
 map    <C-F3>      \be
 
-Plugin 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
+"Plugin 'nathanaelkane/vim-indent-guides'
+"let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size = 1
 
 Plugin 'msanders/snipmate.vim'
 
@@ -132,7 +134,7 @@ set smartcase                                         "如果搜索模式包含�
 set number                                            "显示行号
 set laststatus=2                                      "启用状态栏信息
 set cmdheight=2                                       "设置命令行的高度为2，默认为1
-set cursorline                                        "突出显示当前行
+"set cursorline                                        "突出显示当前行
 "set guifont=YaHei_Consolas_Hybrid:h10                 "设置字体:字号（字体名称空格用下划线代替）
 set nowrap                                            "设置不自动换行
 set shortmess=atI                                     "去掉欢迎界面
@@ -143,6 +145,15 @@ set smarttab
 set foldenable                                        "启用折叠
 set foldmethod=manual 
 set laststatus=2
+
+" 显示tab和空格
+set list
+" 设置tab和空格样式
+set lcs=tab:\|\ ,nbsp:%,trail:.
+" 设定行首tab为灰色
+highlight LeaderTab guifg=#666666
+" 匹配行首tab
+match LeaderTab /^\t/
 
 autocmd FileType * set tabstop=2|set shiftwidth=2|set expandtab
 autocmd FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
